@@ -66,10 +66,12 @@ class HomeFragment : Fragment() {
                 productsList.visibility = View.VISIBLE
                 cashCardView.visibility = View.VISIBLE
                 spotlightListAdapter.updateSpotlightList(it.spotlight)
-                spotlightList.smoothScrollToPosition(0)
                 productListAdapter.updateProductList(it.products)
-                productsList.smoothScrollToPosition(0)
                 binding.cash = it.cash
+                if (it.spotlight.isNotEmpty())
+                    spotlightList.smoothScrollToPosition(0)
+                if (it.products.isNotEmpty())
+                    productsList.smoothScrollToPosition(0)
             }
         })
 

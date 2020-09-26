@@ -6,6 +6,7 @@ Stack utilizada:
 - Kotlin
 - Android DataBinding
 - AndroidX
+- Mockk
 - Retrofit2.0
 - RxJava
 - MVVM

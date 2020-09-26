@@ -23,7 +23,6 @@ class DataViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val throwedException = true
     private val repository = mockk<GokApiService>()
     private val onDataLoadedObserver = mockk<Observer<DataModel>>(relaxed = true)
     private val onDataErrorObserver = mockk<Observer<Boolean>>(relaxed = true)
@@ -62,7 +61,7 @@ class DataViewModelTest {
         viewModel.fetchFromRemote()
 
         verify { repository.fetchData() }
-        verify { onDataErrorObserver.onChanged(throwedException) }
+        verify { onDataErrorObserver.onChanged(true) }
 
     }
 

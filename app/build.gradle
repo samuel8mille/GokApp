@@ -45,6 +45,8 @@ def koinVersion = '2.0.1'
 def navVersion = '2.3.0'
 def preferencesVersion = '1.0.0'
 def firebaseVersion = '17.2.2'
+def mockkVersion = '1.9.3'
+def lifeCycleVersion = '2.1.0'
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -103,8 +105,11 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.6.2'
 
-
+    /* Testing libraries */
     testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "androidx.arch.core:core-testing:$lifeCycleVersion"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 

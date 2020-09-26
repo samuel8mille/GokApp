@@ -18,7 +18,7 @@ class DataViewModel(
     fun fetchFromRemote() {
         loading.value = true
         disposable.add(
-            gokApiService.getData()
+            gokApiService.fetchData()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<DataModel>() {

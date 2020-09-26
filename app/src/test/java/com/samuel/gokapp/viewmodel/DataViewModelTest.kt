@@ -23,8 +23,10 @@ class DataViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    private val throwedException = true
     private val repository = mockk<GokApiService>()
     private val onDataLoadedObserver = mockk<Observer<DataModel>>(relaxed = true)
+    private val onDataErrorObserver = mockk<Observer<Boolean>>(relaxed = true)
     private val dataModel = DataModel(
         listOf(SpotlightModel("", "", "")),
         listOf(ProductsModel("", "", "")),
@@ -42,18 +44,32 @@ class DataViewModelTest {
 
         val singleDataModel = Single.just(dataModel)
 
-        every { repository.getData() } returns singleDataModel
+        every { repository.fetchData() } returns singleDataModel
 
         viewModel.fetchFromRemote()
 
-        verify { repository.getData() }
+        verify { repository.fetchData() }
         verify { onDataLoadedObserver.onChanged(dataModel) }
+
+    }
+
+    @Test
+    fun `when view model fetches data and has error than throw an excpetion`() {
+        val viewModel = instantiateViewModel()
+
+        every { repository.fetchData() } returns Single.error(Throwable("Ops! Ocorreu um erro!"))
+
+        viewModel.fetchFromRemote()
+
+        verify { repository.fetchData() }
+        verify { onDataErrorObserver.onChanged(throwedException) }
 
     }
 
     private fun instantiateViewModel(): DataViewModel {
         val viewModel = DataViewModel(repository)
         viewModel.data.observeForever(onDataLoadedObserver)
+        viewModel.dataLoadError.observeForever(onDataErrorObserver)
         return viewModel
     }
 }

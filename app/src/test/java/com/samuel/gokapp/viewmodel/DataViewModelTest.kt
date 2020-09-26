@@ -53,7 +53,7 @@ class DataViewModelTest {
     }
 
     @Test
-    fun `when view model fetches data and has error than throw an excpetion`() {
+    fun `when view model fetches data and has an error than throw an exception`() {
         val viewModel = instantiateViewModel()
 
         every { repository.fetchData() } returns Single.error(Throwable("Ops! Ocorreu um erro!"))

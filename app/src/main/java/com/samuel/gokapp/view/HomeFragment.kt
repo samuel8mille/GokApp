@@ -43,8 +43,8 @@ class HomeFragment : Fragment() {
 
         refreshLayout.setOnRefreshListener {
             spotlightList.visibility = View.GONE
-            productsList.visibility = View.GONE
             cashCardView.visibility = View.GONE
+            productsList.visibility = View.GONE
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
             viewModel.fetchFromRemote()
@@ -62,12 +62,12 @@ class HomeFragment : Fragment() {
 
         viewModel.data.observe(this, Observer {
             it?.let {
-                spotlightList.visibility = View.VISIBLE
-                productsList.visibility = View.VISIBLE
-                cashCardView.visibility = View.VISIBLE
                 spotlightListAdapter.updateSpotlightList(it.spotlight)
                 productListAdapter.updateProductList(it.products)
                 binding.cash = it.cash
+                spotlightList.visibility = View.VISIBLE
+                cashCardView.visibility = View.VISIBLE
+                productsList.visibility = View.VISIBLE
                 if (it.spotlight.isNotEmpty())
                     spotlightList.smoothScrollToPosition(0)
                 if (it.products.isNotEmpty())
@@ -87,6 +87,8 @@ class HomeFragment : Fragment() {
                     loadingView.visibility = View.VISIBLE
                     listError.visibility = View.GONE
                     spotlightList.visibility = View.GONE
+                    cashCardView.visibility = View.GONE
+                    productsList.visibility = View.GONE
                 } else {
                     loadingView.visibility = View.GONE
                 }

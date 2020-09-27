@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
 
     fun observeVielModel() {
 
-        viewModel.data.observe(this, Observer {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {
                 spotlightListAdapter.updateSpotlightList(it.spotlight)
                 productListAdapter.updateProductList(it.products)
@@ -75,13 +75,13 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.dataLoadError.observe(this, Observer {
+        viewModel.dataLoadError.observe(viewLifecycleOwner, Observer {
             it?.let {
                 listError.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
 
-        viewModel.loading.observe(this, Observer {
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it) {
                     loadingView.visibility = View.VISIBLE
